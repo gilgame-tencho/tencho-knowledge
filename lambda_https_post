@@ -1,0 +1,21 @@
+const https = require('https');
+
+exports.handler = function(event){
+    const url = 'https://hooks.slack.com/services/xx/xx/xxx';
+    const options = {
+        'method': 'POST',
+        'headers': {
+            "Content-Type": "application/json",
+        }
+    }
+    let t = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }).split(' ')[1];
+    let msg = `こちらはAWSです。ただいまの時刻は ${t} です。`;
+    let data = JSON.stringify({
+      text: msg,
+    });
+
+    const request = https.request(url, options);
+    request.write(data);
+    request.end();
+
+}
